@@ -1,7 +1,9 @@
 package me.craig.college.wsc.forms;
 
 import me.craig.college.wsc.College;
+import me.craig.college.wsc.CompetitionData;
 import me.craig.college.wsc.Team;
+import me.craig.college.wsc.Utility;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,14 +20,20 @@ public class AddTeamDialog extends JDialog {
     private JButton addTeamMembersButton;
     private JTable collegeMembersTable;
     private JScrollPane teamMembersPane;
+    private JComboBox comboBox1;
     private Team team = new Team();
 
     public AddTeamDialog() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
         for (College college : College.values()) {
             collegeChoiceBox.addItem(college.getCollegeName());
+        }
+
+        for (String subject : Utility.SUBJECTS) {
+            comboBox1.addItem(subject);
         }
 
         buttonOK.addActionListener(e -> onOK());
@@ -52,8 +60,13 @@ public class AddTeamDialog extends JDialog {
     }
 
     private void onOK() {
-        StringBuilder teamData = new StringBuilder("=====" + team.teamName() + "=====");
-        WorldSkillsCompetition.display(teamData.toString());
+        if(team.getStudents().isEmpty()){
+            JOptionPane.showMessageDialog(null, "You must add Members to the Team", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        team.setCollege((String) collegeChoiceBox.getSelectedItem());
+        team.setArea((String) comboBox1.getSelectedItem());
+        CompetitionData.addTeam(team);
         dispose();
     }
 
@@ -64,7 +77,7 @@ public class AddTeamDialog extends JDialog {
     public static void createTeamInput() {
         AddTeamDialog dialog = new AddTeamDialog();
         dialog.setTitle("Add Team");
-        dialog.setSize(460, 350);
+        dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }

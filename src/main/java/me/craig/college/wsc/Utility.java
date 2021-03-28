@@ -1,11 +1,16 @@
 package me.craig.college.wsc;
 
+import me.craig.college.wsc.people.Student;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /* Created by Craig on 26/03/2021 */
 public class Utility {
 
-    public static Object[][] forceAddToArray(String[] strings, Object[][] array) {
+    public static String[] SUBJECTS = new String[]{"Administration", "Computing", "History", "Art", "Graphic Art", "Childcare"};
+
+    public static Object[][] addToArray(String[] strings, Object[][] array) {
         array = Arrays.copyOf(array, array.length + 1);
         array[array.length - 1] = strings;
         return array;
@@ -31,4 +36,11 @@ public class Utility {
         return true;
     }
 
+    public static String createString(ArrayList< Student> allStudents) {
+        StringBuilder students = new StringBuilder();
+        for (Student student : allStudents) {
+            students.append("\n").append(student.getStudentID());
+        }
+        return students.toString();
+    }
 }

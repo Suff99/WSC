@@ -19,10 +19,11 @@ public class AddStudentForm extends JDialog {
     private JTextField IDinput, addressInput;
     private JComboBox< String > comboBox1;
     private JFormattedTextField telephoneInput;
+    private JLabel title;
 
-    public AddStudentForm(Team team, JTable textArea1) {
+    public AddStudentForm(Team team, JTable table) {
         this.team = team;
-        this.textArea = textArea1;
+        this.textArea = table;
         for (Person.Status status : Person.Status.values()) {
             comboBox1.addItem(status.getStatus());
         }
@@ -65,7 +66,7 @@ public class AddStudentForm extends JDialog {
     private Object[][] updateTable() {
         Object[][] values = new Object[][]{};
         for (Student student : team.getStudents()) {
-            values = Utility.forceAddToArray(new String[]{student.getStudentID(), student.getAddress(), Utility.censorPhoneNumber(String.valueOf(student.getTelephone())), (String) comboBox1.getSelectedItem()}, values);
+            values = Utility.addToArray(new String[]{student.getStudentID(), student.getAddress(), Utility.censorPhoneNumber(String.valueOf(student.getTelephone())), (String) comboBox1.getSelectedItem()}, values);
         }
         return values;
     }

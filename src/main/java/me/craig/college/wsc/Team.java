@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class Team {
 
     private String teamName = "";
+    private String college = "";
     private final ArrayList< Student > students = new ArrayList<>();
+    private String area = "";
 
     public Team(){
 
@@ -17,6 +19,15 @@ public class Team {
     public Team setTeamName(String teamName){
         this.teamName = teamName;
         return this;
+    }
+
+    public Team setCollege(String college) {
+        this.college = college;
+        return this;
+    }
+
+    public String college() {
+        return college;
     }
 
     public String teamName() {
@@ -30,5 +41,13 @@ public class Team {
 
     public ArrayList< Student > getStudents() {
         return students;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String area(){
+        return area;
     }
 }
