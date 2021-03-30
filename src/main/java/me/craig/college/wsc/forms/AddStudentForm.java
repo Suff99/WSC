@@ -1,9 +1,8 @@
 package me.craig.college.wsc.forms;
 
-import me.craig.college.wsc.Team;
+import me.craig.college.wsc.objects.Team;
 import me.craig.college.wsc.Utility;
-import me.craig.college.wsc.people.Person;
-import me.craig.college.wsc.people.Student;
+import me.craig.college.wsc.objects.people.Person;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -49,42 +48,30 @@ public class AddStudentForm extends JDialog {
 
     private void onOK() {
         if (!validateInputs()) {
-            JOptionPane.showMessageDialog(null, "Please fill out all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            Utility.showError("Please fill out all fields.");
             return;
         }
-        String telephone = telephoneInput.getText();
+        String telephone = telephoneInput.getText().replaceAll(" ", "");
         if (Utility.isValidNumber(telephone)) {
-            team.addStudent(IDinput.getText(), addressInput.getText(), Long.parseLong(telephone), (String) comboBox1.getSelectedItem());
-            Object[][] values = updateTable();
-            createTable(textArea, values);
+            team.addStudent(IDinput.getText(), addressInput.getText(), Long.parseLong(telephone), (String) comboBox1.getSelectedItem(), team);
+            WorldSkillsCompetition.insertDataToTable(textArea, team.getStudents());
             dispose();
             return;
         }
-        JOptionPane.showMessageDialog(null, "Invalid Phone Number. Only Enter Numbers.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private Object[][] updateTable() {
-        Object[][] values = new Object[][]{};
-        for (Student student : team.getStudents()) {
-            values = Utility.addToArray(new String[]{student.getStudentID(), student.getAddress(), Utility.censorPhoneNumber(String.valueOf(student.getTelephone())), (String) comboBox1.getSelectedItem()}, values);
-        }
-        return values;
+        Utility.showError( "Invalid Phone Number. Only Enter Numbers.");
     }
 
     public boolean validateInputs() {
         return !telephoneInput.getText().isEmpty() && !addressInput.getText().isEmpty() && !IDinput.getText().isEmpty();
     }
 
-    public void createTable(JTable table, Object[][] data) {
-        table.setModel(new DefaultTableModel(data, new String[]{"EC Number", "Address", "Telephone", "Employment Status"}));
-    }
-
     private void onCancel() {
         dispose();
     }
 
-    public static void createTeamInput(Team team, JTable textArea1) {
-        AddStudentForm dialog = new AddStudentForm(team, textArea1);
+    public static void createTeamInput(Team team, JTable jTable) {
+        AddStudentForm dialog = new AddStudentForm(team, jTable);
+        dialog.setIconImage(WorldSkillsCompetition.instance.getIconLocation());
         dialog.setSize(760, 350);
         dialog.setLocationRelativeTo(null);
         dialog.pack();

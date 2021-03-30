@@ -1,14 +1,15 @@
 package me.craig.college.wsc;
 
-import me.craig.college.wsc.people.Student;
+import me.craig.college.wsc.objects.DataTable;
+import me.craig.college.wsc.objects.people.Person;
+import me.craig.college.wsc.objects.people.Student;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /* Created by Craig on 26/03/2021 */
 public class Utility {
-
-    public static String[] SUBJECTS = new String[]{"Administration", "Computing", "History", "Art", "Graphic Art", "Childcare"};
 
     public static Object[][] addToArray(String[] strings, Object[][] array) {
         array = Arrays.copyOf(array, array.length + 1);
@@ -36,11 +37,16 @@ public class Utility {
         return true;
     }
 
-    public static String createString(ArrayList< Student> allStudents) {
+    public static String createString(ArrayList< DataTable< Person< Student > > > allStudents) {
         StringBuilder students = new StringBuilder();
-        for (Student student : allStudents) {
+        for (DataTable< Person< Student > > dataTable : allStudents) {
+            Student student = (Student) dataTable.getAsSelf();
             students.append("\n").append(student.getStudentID());
         }
         return students.toString();
+    }
+
+    public static void showError(String errorMessage){
+        JOptionPane.showMessageDialog(null, errorMessage, "Error!", JOptionPane.ERROR_MESSAGE);
     }
 }

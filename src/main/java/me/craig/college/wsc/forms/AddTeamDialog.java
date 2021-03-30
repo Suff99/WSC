@@ -1,8 +1,8 @@
 package me.craig.college.wsc.forms;
 
-import me.craig.college.wsc.College;
+import me.craig.college.wsc.objects.College;
 import me.craig.college.wsc.CompetitionData;
-import me.craig.college.wsc.Team;
+import me.craig.college.wsc.objects.Team;
 import me.craig.college.wsc.Utility;
 
 import javax.swing.*;
@@ -32,7 +32,7 @@ public class AddTeamDialog extends JDialog {
             collegeChoiceBox.addItem(college.getCollegeName());
         }
 
-        for (String subject : Utility.SUBJECTS) {
+        for (String subject : CompetitionData.SUBJECTS) {
             comboBox1.addItem(subject);
         }
 
@@ -42,7 +42,7 @@ public class AddTeamDialog extends JDialog {
 
         addTeamMembersButton.addActionListener(e -> {
             if(teamName.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "You must set a Team name!", "Error", JOptionPane.ERROR_MESSAGE);
+                Utility.showError("You must set a Team name!");
                 return;
             }
             AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
@@ -61,7 +61,7 @@ public class AddTeamDialog extends JDialog {
 
     private void onOK() {
         if(team.getStudents().isEmpty()){
-            JOptionPane.showMessageDialog(null, "You must add Members to the Team", "Error", JOptionPane.ERROR_MESSAGE);
+            Utility.showError( "You must add Members to the Team");
             return;
         }
         team.setCollege((String) collegeChoiceBox.getSelectedItem());
@@ -77,8 +77,10 @@ public class AddTeamDialog extends JDialog {
     public static void createTeamInput() {
         AddTeamDialog dialog = new AddTeamDialog();
         dialog.setTitle("Add Team");
+        dialog.setIconImage(WorldSkillsCompetition.instance.getIconLocation());
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
+
     }
 }
