@@ -5,7 +5,7 @@ import me.craig.college.wsc.Utility;
 import me.craig.college.wsc.objects.DataTable;
 import me.craig.college.wsc.objects.Projects;
 import me.craig.college.wsc.objects.Team;
-import me.craig.college.wsc.objects.people.Judge;
+import me.craig.college.wsc.objects.people.JudgingPanel;
 import me.craig.college.wsc.objects.people.Person;
 import me.craig.college.wsc.objects.people.Student;
 
@@ -36,10 +36,7 @@ public class WorldSkillsCompetition extends JFrame {
 
         addTeamButton.addActionListener(e -> {
             AddTeamDialog.createTeamInput();
-            boolean enableProgram = !CompetitionData.getTeams().isEmpty();
-            addProjectButton.setEnabled(enableProgram);
-            currentDataChoice.setEnabled(enableProgram);
-            updateMainTable((String) currentDataChoice.getSelectedItem());
+            unlockButtons();
         });
 
         quitButton.addActionListener(e -> System.exit(0));
@@ -56,6 +53,7 @@ public class WorldSkillsCompetition extends JFrame {
         addJudgeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AddJudge.addJudgeInput();
                 updateMainTable((String) currentDataChoice.getSelectedItem());
             }
         });
@@ -72,12 +70,16 @@ public class WorldSkillsCompetition extends JFrame {
         iconLocation = getClass().getResource("/ws-logo.png");
     }
 
+    private void unlockButtons() {
+        boolean enableProgram = !CompetitionData.getTeams().isEmpty();
+        addProjectButton.setEnabled(enableProgram);
+        currentDataChoice.setEnabled(enableProgram);
+        addJudgeButton.setEnabled(enableProgram);
+        updateMainTable((String) currentDataChoice.getSelectedItem());
+    }
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+        Utility.setTheme();
         instance = new WorldSkillsCompetition();
         JFrame jFrame = new JFrame("World Skills Competition");
         jFrame.setContentPane(instance.mainPanel);
@@ -94,7 +96,7 @@ public class WorldSkillsCompetition extends JFrame {
         if (!instance.currentDataChoice.isEnabled()) return;
         switch (table) {
             case "Judges":
-                insertDataToTable(instance.dataTable, Judge.getJudges());
+                insertDataToTable(instance.dataTable, JudgingPanel.getJudges());
                 break;
             case "Teams":
                 insertDataToTable(instance.dataTable, CompetitionData.getTeams());

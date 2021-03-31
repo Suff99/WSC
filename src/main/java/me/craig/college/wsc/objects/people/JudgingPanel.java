@@ -5,7 +5,7 @@ import me.craig.college.wsc.objects.DataTable;
 import java.util.ArrayList;
 
 /* Created by Craig on 12/03/2021 */
-public class Judge {
+public class JudgingPanel {
 
     private static final ArrayList< DataTable< Person< Teacher > > > JUDGES = new ArrayList<>();
 
@@ -13,8 +13,8 @@ public class Judge {
         return JUDGES;
     }
 
-    public void addJudge(String address, int telephone, String status) {
-        JUDGES.add(new Teacher(address, telephone, status));
+    public static void addJudge(String address, long telephone, long teachingId, String status) {
+        JUDGES.add(new Teacher(address, telephone, teachingId, status));
     }
 
 }

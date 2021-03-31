@@ -143,7 +143,7 @@
         <properties>
           <enabled value="true"/>
           <font name="Unispace" size="22" style="1"/>
-          <text value="Add Person"/>
+          <text value="Add Student"/>
         </properties>
       </component>
       <component id="ce51f" class="javax.swing.JLabel">

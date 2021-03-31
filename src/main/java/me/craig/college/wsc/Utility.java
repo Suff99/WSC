@@ -15,6 +15,23 @@ public class Utility {
 
     public static Random RAND = new Random();
 
+    public static void setTheme(){
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static long generateNumber(int length) {
+        char[] digits = new char[length];
+        digits[0] = (char) (RAND.nextInt(9) + '1');
+        for (int i = 1; i < digits.length; i++) {
+            digits[i] = (char) (RAND.nextInt(10) + '0');
+        }
+        return Long.parseLong(new String(digits));
+    }
+
     public static Object[][] addToArray(String[] strings, Object[][] array) {
         array = Arrays.copyOf(array, array.length + 1);
         array[array.length - 1] = strings;

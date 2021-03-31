@@ -7,6 +7,8 @@ import me.craig.college.wsc.objects.Projects;
 import me.craig.college.wsc.objects.Team;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.*;
 
 public class AddProject extends JDialog {
@@ -15,23 +17,19 @@ public class AddProject extends JDialog {
     private JButton buttonCancel;
     private JComboBox teamDropbox;
     private JTextField projectName;
+    private JSlider slider1;
+    private JLabel data;
 
     public AddProject() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        slider1.addChangeListener(e -> data.setText(String.valueOf(slider1.getValue())));
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
+
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -42,11 +40,7 @@ public class AddProject extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         for (DataTable< Team > team : CompetitionData.getTeams()) {
             teamDropbox.addItem(team.getAsSelf().teamName());
@@ -70,6 +64,7 @@ public class AddProject extends JDialog {
         Projects.Project project = new Projects.Project();
         project.setProjectName(projectName.getText());
         project.setTeam((String) teamDropbox.getSelectedItem());
+        project.setScore(slider1.getValue());
         Projects.addProject(project);
         dispose();
     }
