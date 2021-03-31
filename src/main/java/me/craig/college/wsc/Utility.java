@@ -5,11 +5,15 @@ import me.craig.college.wsc.objects.people.Person;
 import me.craig.college.wsc.objects.people.Student;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 /* Created by Craig on 26/03/2021 */
 public class Utility {
+
+    public static Random RAND = new Random();
 
     public static Object[][] addToArray(String[] strings, Object[][] array) {
         array = Arrays.copyOf(array, array.length + 1);
@@ -28,7 +32,7 @@ public class Utility {
         return first + censored.toString() + last;
     }
 
-    public static boolean isValidNumber(String number) {
+    public static boolean isValidLong(String number) {
         try {
             Long.parseLong(number);
         } catch (NumberFormatException numberFormatException) {
@@ -37,7 +41,7 @@ public class Utility {
         return true;
     }
 
-    public static String createString(ArrayList< DataTable< Person< Student > > > allStudents) {
+    public static String readableStudent(ArrayList< DataTable< Person< Student > > > allStudents) {
         StringBuilder students = new StringBuilder();
         for (DataTable< Person< Student > > dataTable : allStudents) {
             Student student = (Student) dataTable.getAsSelf();
@@ -46,7 +50,8 @@ public class Utility {
         return students.toString();
     }
 
-    public static void showError(String errorMessage){
+    public static void showError(String errorMessage) {
+        Toolkit.getDefaultToolkit().beep();
         JOptionPane.showMessageDialog(null, errorMessage, "Error!", JOptionPane.ERROR_MESSAGE);
     }
 }

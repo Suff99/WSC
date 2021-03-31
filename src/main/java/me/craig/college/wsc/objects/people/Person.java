@@ -5,7 +5,7 @@ import me.craig.college.wsc.objects.DataTable;
 import javax.swing.*;
 
 /* Created by Craig on 19/03/2021 */
-public class Person< S extends Person > implements DataTable<Person< S > > {
+public class Person< S extends Person > implements DataTable< Person< S > > {
     private String address = "";
     private long telephone = 0;
     private String status = Status.NONE.getStatus();
@@ -15,6 +15,7 @@ public class Person< S extends Person > implements DataTable<Person< S > > {
         this.telephone = telephone;
         this.status = status;
     }
+
     public long getTelephone() {
         return telephone;
     }
@@ -38,7 +39,7 @@ public class Person< S extends Person > implements DataTable<Person< S > > {
     }
 
     @Override
-    public Person<S> getAsSelf() {
+    public Person< S > getAsSelf() {
         return this;
     }
 

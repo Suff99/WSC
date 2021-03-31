@@ -53,8 +53,17 @@ public class AddProject extends JDialog {
         }
     }
 
+    public static void createProject() {
+        AddProject dialog = new AddProject();
+        dialog.setIconImage(WorldSkillsCompetition.instance.getIconLocation());
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setTitle("Add Project");
+        dialog.setVisible(true);
+    }
+
     private void onOK() {
-        if(projectName.getText().isEmpty()){
+        if (projectName.getText().isEmpty()) {
             Utility.showError("Please Input a Project Name!");
             return;
         }
@@ -67,14 +76,5 @@ public class AddProject extends JDialog {
 
     private void onCancel() {
         dispose();
-    }
-
-    public static void createProject() {
-        AddProject dialog = new AddProject();
-        dialog.setIconImage(WorldSkillsCompetition.instance.getIconLocation());
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setTitle("Add Project");
-        dialog.setVisible(true);
     }
 }

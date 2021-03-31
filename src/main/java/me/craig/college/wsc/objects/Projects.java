@@ -30,12 +30,12 @@ public class Projects {
             this.team = team;
         }
 
-        public void setScore(float score) {
-            this.score = score;
-        }
-
         public float getScore() {
             return score;
+        }
+
+        public void setScore(float score) {
+            this.score = score;
         }
 
         public String getProjectName() {

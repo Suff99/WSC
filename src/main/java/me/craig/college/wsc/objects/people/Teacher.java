@@ -1,9 +1,9 @@
 package me.craig.college.wsc.objects.people;
 
 /* Created by Craig on 19/03/2021 */
-public class Teachers extends Person< Person< Teachers > > {
+public class Teacher extends Person< Teacher > {
 
-    public Teachers(String address, long telephone, String status) {
+    public Teacher(String address, long telephone, String status) {
         super(address, telephone, status);
     }
 

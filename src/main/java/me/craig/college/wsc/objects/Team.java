@@ -1,6 +1,5 @@
 package me.craig.college.wsc.objects;
 
-import me.craig.college.wsc.Utility;
 import me.craig.college.wsc.objects.people.Person;
 import me.craig.college.wsc.objects.people.Student;
 
@@ -11,9 +10,9 @@ import java.util.ArrayList;
 /* Created by Craig on 26/03/2021 */
 public class Team implements DataTable< Team > {
 
+    private final ArrayList< DataTable< Person< Student > > > students = new ArrayList<>();
     private String teamName = "";
     private String college = "";
-    private final ArrayList< DataTable< Person<Student> > > students = new ArrayList<>();
     private String area = "";
 
     public Team setTeamName(String teamName) {
@@ -34,12 +33,12 @@ public class Team implements DataTable< Team > {
         return teamName;
     }
 
-    public void addStudent(String ecNumber, String address, long telephone, String status, Team team) {
+    public void addStudent(long ecNumber, String address, long telephone, String status, Team team) {
         Student student = new Student(ecNumber, address, telephone, status, team.teamName());
         students.add(student);
     }
 
-    public ArrayList< DataTable< Person<Student> > > getStudents() {
+    public ArrayList< DataTable< Person< Student > > > getStudents() {
         return students;
     }
 
@@ -53,7 +52,7 @@ public class Team implements DataTable< Team > {
 
     @Override
     public String[] toDataRow() {
-        return new String[]{teamName(), college(), Utility.createString(getStudents()), area()};
+        return new String[]{teamName(), college(), String.valueOf(getStudents().size()), area()};
     }
 
     @Override

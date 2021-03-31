@@ -8,6 +8,7 @@ import java.util.ArrayList;
 /* Created by Craig on 28/03/2021 */
 public class CompetitionData {
 
+    private static final ArrayList< DataTable< Team > > TEAMS = new ArrayList<>();
     public static String[] SUBJECTS = new String[]{"Accounting and Finance",
             "Aeronautical and Manufacturing Engineering",
             "Agriculture and Forestry",
@@ -74,9 +75,7 @@ public class CompetitionData {
             "Youth Work"
     };
 
-    private static final ArrayList< DataTable<Team> > TEAMS = new ArrayList<>();
-
-    public static void addTeam(Team team){
+    public static void addTeam(Team team) {
         TEAMS.add(team);
     }
 

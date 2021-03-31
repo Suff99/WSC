@@ -5,6 +5,7 @@ import me.craig.college.wsc.Utility;
 import me.craig.college.wsc.objects.DataTable;
 import me.craig.college.wsc.objects.Projects;
 import me.craig.college.wsc.objects.Team;
+import me.craig.college.wsc.objects.people.Judge;
 import me.craig.college.wsc.objects.people.Person;
 import me.craig.college.wsc.objects.people.Student;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 /* Created by Craig on 26/03/2021 */
 public class WorldSkillsCompetition extends JFrame {
+    public static WorldSkillsCompetition instance;
     public final URL iconLocation;
     private JButton addTeamButton;
     private JPanel mainPanel;
@@ -29,18 +31,15 @@ public class WorldSkillsCompetition extends JFrame {
     private JComboBox< String > currentDataChoice;
     private JButton addProjectButton;
     private JButton helpButton;
-    private JButton editProjectButton;
-
-    public static WorldSkillsCompetition instance;
 
     public WorldSkillsCompetition() {
 
         addTeamButton.addActionListener(e -> {
             AddTeamDialog.createTeamInput();
-            updateMainTable((String) currentDataChoice.getSelectedItem());
             boolean enableProgram = !CompetitionData.getTeams().isEmpty();
             addProjectButton.setEnabled(enableProgram);
             currentDataChoice.setEnabled(enableProgram);
+            updateMainTable((String) currentDataChoice.getSelectedItem());
         });
 
         quitButton.addActionListener(e -> System.exit(0));
@@ -70,7 +69,7 @@ public class WorldSkillsCompetition extends JFrame {
 
         dataTable.setModel(new DefaultTableModel(null, new String[]{"Team Name", "College", "Members", "Area"}));
         dataTable.setEnabled(false);
-        iconLocation = this.getClass().getResource("/ws-logo.png");
+        iconLocation = getClass().getResource("/ws-logo.png");
     }
 
     public static void main(String[] args) {
@@ -92,20 +91,22 @@ public class WorldSkillsCompetition extends JFrame {
     }
 
     public static void updateMainTable(String table) {
-
+        if (!instance.currentDataChoice.isEnabled()) return;
         switch (table) {
             case "Judges":
-                insertDataToTable(instance.dataTable, CompetitionData.getTeams());
+                insertDataToTable(instance.dataTable, Judge.getJudges());
                 break;
             case "Teams":
                 insertDataToTable(instance.dataTable, CompetitionData.getTeams());
                 break;
             case "Students":
+                ArrayList< DataTable< Person< Student > > > combinedStudents = new ArrayList<>();
                 for (DataTable< Team > dataTable : CompetitionData.getTeams()) {
                     Team team = dataTable.getAsSelf();
-                    ArrayList< DataTable< Person<Student> > > students = team.getStudents();
-                    insertDataToTable(instance.dataTable, students);
+                    ArrayList< DataTable< Person< Student > > > students = team.getStudents();
+                    combinedStudents.addAll(students);
                 }
+                insertDataToTable(instance.dataTable, combinedStudents);
                 break;
             case "Projects":
                 insertDataToTable(instance.dataTable, Projects.getProjects());

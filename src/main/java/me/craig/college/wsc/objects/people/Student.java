@@ -6,23 +6,24 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /* Created by Craig on 19/03/2021 */
-public class Student extends Person<Student> {
+public class Student extends Person< Student > {
 
-    private String studentID, teamName;
+    private final long studentID;
+    private String teamName;
 
-    public Student(String studentID, String address, long telephone, String teamName, String status) {
+    public Student(long studentID, String address, long telephone, String teamName, String status) {
         super(address, telephone, status);
         this.studentID = studentID;
         this.teamName = teamName;
     }
 
-    public String getStudentID() {
+    public long getStudentID() {
         return studentID;
     }
 
     @Override
     public String[] toDataRow() {
-        return new String[]{teamName(), getStudentID(), getAddress(), getStatus(), Utility.censorPhoneNumber(String.valueOf(getTelephone()))};
+        return new String[]{getStatus(), String.valueOf(getStudentID()), getAddress(), teamName(), Utility.censorPhoneNumber(String.valueOf(getTelephone()))};
     }
 
     public void setTeam(String teamName) {
