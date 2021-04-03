@@ -15,7 +15,7 @@ public class Utility {
 
     public static Random RAND = new Random();
 
-    public static void setTheme(){
+    public static void setTheme() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {

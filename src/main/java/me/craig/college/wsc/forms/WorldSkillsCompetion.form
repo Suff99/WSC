@@ -79,12 +79,6 @@
         <border type="none"/>
         <children/>
       </grid>
-      <component id="f1a87" class="javax.swing.JComboBox" binding="currentDataChoice">
-        <constraints>
-          <grid row="5" column="4" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="bdf73" class="javax.swing.JButton" binding="addTeamButton" default-binding="true">
         <constraints>
           <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -126,9 +120,15 @@
           <text value="Help"/>
         </properties>
       </component>
+      <component id="f1a87" class="javax.swing.JComboBox" binding="currentDataChoice">
+        <constraints>
+          <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
       <component id="67e59" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Table Data:"/>

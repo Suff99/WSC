@@ -7,9 +7,9 @@ import me.craig.college.wsc.objects.Projects;
 import me.craig.college.wsc.objects.Team;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AddProject extends JDialog {
     private JPanel contentPane;

@@ -31,7 +31,7 @@ public class Person< S extends Person > implements DataTable< Person< S > > {
 
     @Override
     public String[] toDataRow() {
-       throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     @Override

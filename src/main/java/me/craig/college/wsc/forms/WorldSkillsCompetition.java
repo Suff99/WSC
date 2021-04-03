@@ -34,6 +34,13 @@ public class WorldSkillsCompetition extends JFrame {
 
     public WorldSkillsCompetition() {
 
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         addTeamButton.addActionListener(e -> {
             AddTeamDialog.createTeamInput();
             unlockButtons();
@@ -50,12 +57,9 @@ public class WorldSkillsCompetition extends JFrame {
         currentDataChoice.setEnabled(false);
 
 
-        addJudgeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddJudge.addJudgeInput();
-                updateMainTable((String) currentDataChoice.getSelectedItem());
-            }
+        addJudgeButton.addActionListener(e -> {
+            AddJudge.addJudgeInput();
+            updateMainTable((String) currentDataChoice.getSelectedItem());
         });
         addJudgeButton.setEnabled(false);
 
@@ -68,14 +72,6 @@ public class WorldSkillsCompetition extends JFrame {
         dataTable.setModel(new DefaultTableModel(null, new String[]{"Team Name", "College", "Members", "Area"}));
         dataTable.setEnabled(false);
         iconLocation = getClass().getResource("/ws-logo.png");
-    }
-
-    private void unlockButtons() {
-        boolean enableProgram = !CompetitionData.getTeams().isEmpty();
-        addProjectButton.setEnabled(enableProgram);
-        currentDataChoice.setEnabled(enableProgram);
-        addJudgeButton.setEnabled(enableProgram);
-        updateMainTable((String) currentDataChoice.getSelectedItem());
     }
 
     public static void main(String[] args) {
@@ -128,6 +124,14 @@ public class WorldSkillsCompetition extends JFrame {
             values = Utility.addToArray(project.toDataRow(), values);
             project.setDataHeaders(jTable, values);
         }
+    }
+
+    private void unlockButtons() {
+        boolean enableProgram = !CompetitionData.getTeams().isEmpty();
+        addProjectButton.setEnabled(enableProgram);
+        currentDataChoice.setEnabled(enableProgram);
+        addJudgeButton.setEnabled(enableProgram);
+        updateMainTable((String) currentDataChoice.getSelectedItem());
     }
 
     public Image getIconLocation() {

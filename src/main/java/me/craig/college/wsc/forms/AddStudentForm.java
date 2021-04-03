@@ -46,17 +46,6 @@ public class AddStudentForm extends JDialog {
         buttonCancel.addActionListener(e -> onCancel());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
-
-            @Override
-            public void windowOpened(WindowEvent e) {
-                super.windowOpened(e);
-                telephoneInput.setText("0131 664 " + Utility.generateNumber(4));
-                addressInput.setText(Utility.RAND.nextInt(100) + (Utility.RAND.nextBoolean() ? " Evergreen Terrace" : " Totters Lane"));
-                idInput.setText(String.valueOf(Utility.generateNumber(8)));
-                employmentChoice.setSelectedIndex(Utility.RAND.nextInt(3));
-                onOK();
-            }
-
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }

@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class AddTeamDialog extends JDialog {
+    private final boolean test = false;
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -44,13 +45,7 @@ public class AddTeamDialog extends JDialog {
                 Utility.showError("You must set a Team name!");
                 return;
             }
-
-            //TODO Test
-            for (int i = Utility.RAND.nextInt(20); i > 0; i--) {
-                subjectArea.setSelectedIndex(Utility.RAND.nextInt(CompetitionData.SUBJECTS.length));
-                collegeChoiceBox.setSelectedIndex(Utility.RAND.nextInt(3));
-                AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
-            }
+            AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
         });
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
