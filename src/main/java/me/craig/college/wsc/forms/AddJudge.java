@@ -45,10 +45,12 @@ public class AddJudge extends JDialog {
             @Override
             public void windowOpened(WindowEvent e) {
                 super.windowOpened(e);
-                telephoneInput.setText("0131 664 " + Utils.generateNumber(4));
-                addressInput.setText(Utils.RAND.nextInt(100) + (Utils.RAND.nextBoolean() ? " Evergreen Terrace" : " Totters Lane"));
-                idInput.setText(String.valueOf(Utils.generateNumber(8)));
-                onOK();
+                if (WorldSkillsCompetition.testMode) {
+                    telephoneInput.setText("0131 664 " + Utils.generateNumber(4));
+                    addressInput.setText(Utils.RAND.nextInt(100) + (Utils.RAND.nextBoolean() ? " Evergreen Terrace" : " Totters Lane"));
+                    idInput.setText(String.valueOf(Utils.generateNumber(8)));
+                    onOK();
+                }
             }
 
             public void windowClosing(WindowEvent e) {

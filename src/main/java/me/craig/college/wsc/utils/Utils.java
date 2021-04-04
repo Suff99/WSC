@@ -47,7 +47,7 @@ public class Utils {
 
     public static String censorPhoneNumber(String num) {
         int length = num.length();
-        String first = num.substring(0,1);
+        String first = num.substring(0, 1);
         char last = num.charAt(num.length() - 1);
         StringBuilder censored = new StringBuilder();
         for (int i = length - 2; i > 0; i--) {

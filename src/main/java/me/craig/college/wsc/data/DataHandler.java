@@ -16,8 +16,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -142,7 +140,8 @@ public class DataHandler {
         for (File file : files) {
             String content = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
             JsonObject student = Utils.GSON.fromJson(AES.decrypt(content, AES.KEY), JsonObject.class);
-            team.addStudent(student.get("studentID").getAsLong(), student.get("address").getAsString(), student.get("telephone").getAsLong(), student.get("status").getAsString(), student.get("teamName").getAsString());;
+            team.addStudent(student.get("studentID").getAsLong(), student.get("address").getAsString(), student.get("telephone").getAsLong(), student.get("status").getAsString(), student.get("teamName").getAsString());
+            ;
         }
     }
 

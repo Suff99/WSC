@@ -22,7 +22,8 @@ import java.util.List;
 /* Created by Craig on 26/03/2021 */
 public class WorldSkillsCompetition extends JFrame {
     public static WorldSkillsCompetition instance;
-    public final URL iconLocation;
+    public static boolean testMode = true;
+    public final URL iconLocation = null;
     private JButton addTeamButton;
     private JPanel mainPanel;
     private JButton quitButton;
@@ -64,7 +65,8 @@ public class WorldSkillsCompetition extends JFrame {
 
         dataTable.setModel(new DefaultTableModel(null, new String[]{"Team Name", "College", "Members", "Area"}));
         dataTable.setEnabled(false);
-        iconLocation = getClass().getResource("/images/ws-logo.png");
+       // iconLocation = getClass().getResource("/images/ws-logo.png");
+       // System.out.println(iconLocation);
     }
 
     public static void main(String[] args) {
@@ -77,7 +79,7 @@ public class WorldSkillsCompetition extends JFrame {
         jFrame.setResizable(false);
         jFrame.setVisible(true);
         jFrame.setLocationRelativeTo(null);
-        jFrame.setIconImage(instance.getIconLocation());
+      //  jFrame.setIconImage(instance.getIconLocation());
         try {
             DataHandler.subjects();
             DataHandler.readInData();

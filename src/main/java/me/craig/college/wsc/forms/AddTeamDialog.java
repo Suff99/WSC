@@ -49,9 +49,14 @@ public class AddTeamDialog extends JDialog {
                 Utils.showError("You must set a Team name!");
                 return;
             }
-            for (int i = 16; i > 0; i--) {
-                AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
+            if (WorldSkillsCompetition.testMode) {
+                for (int i = 16; i > 0; i--) {
+                    AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
+                }
+                return;
             }
+            AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
+
         });
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

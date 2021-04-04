@@ -15,6 +15,8 @@ import java.util.Base64;
 public class AES {
 
     public static final String KEY = getMacAddress();
+    private static SecretKeySpec secretKey;
+    private static byte[] key;
 
     private static String getMacAddress() {
         NetworkInterface network = null;
@@ -22,8 +24,8 @@ public class AES {
             network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
             byte[] mac = network.getHardwareAddress();
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < mac.length; i++){
-                sb.append(String.format("%02X%s", mac[i],(i< mac.length - 1)?"-":""));
+            for (int i = 0; i < mac.length; i++) {
+                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
             }
             return sb.toString();
         } catch (SocketException | UnknownHostException e) {
@@ -31,9 +33,6 @@ public class AES {
         }
         return "NULL";
     }
-
-    private static SecretKeySpec secretKey;
-    private static byte[] key;
 
     public static void setKey(String myKey) {
         MessageDigest sha = null;

@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="WSC:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/WSC_jar</output-path>
-    <root id="archive" name="WSC.jar">
-      <element id="module-output" name="WSC" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/JTattoo-1.6.13.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>
