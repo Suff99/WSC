@@ -39,7 +39,8 @@ public class Team implements DataTable< Team >, InstanceCreator< Team > {
         students.add(student);
     }
 
-    public void addStudent(Student student) {
+    public void addStudent(long ecNumber, String address, long telephone, String status, String teamName) {
+        Student student = new Student(ecNumber, address, telephone, status, teamName);
         students.add(student);
     }
 

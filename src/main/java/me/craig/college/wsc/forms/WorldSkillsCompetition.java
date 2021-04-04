@@ -73,7 +73,7 @@ public class WorldSkillsCompetition extends JFrame {
         JFrame jFrame = new JFrame("World Skills Competition");
         jFrame.setContentPane(instance.mainPanel);
         jFrame.pack();
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setResizable(false);
         jFrame.setVisible(true);
         jFrame.setLocationRelativeTo(null);

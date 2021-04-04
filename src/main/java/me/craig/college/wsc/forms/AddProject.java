@@ -18,7 +18,7 @@ public class AddProject extends JDialog {
     private JButton buttonCancel;
     private JComboBox teamDropbox;
     private JTextField projectName;
-    private JSlider slider1;
+    private JSlider scoreSlider;
     private JLabel data;
 
     public AddProject() {
@@ -26,7 +26,7 @@ public class AddProject extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        slider1.addChangeListener(e -> data.setText(String.valueOf(slider1.getValue())));
+        scoreSlider.addChangeListener(e -> data.setText(String.valueOf(scoreSlider.getValue())));
 
         buttonOK.addActionListener(e -> onOK());
 
@@ -65,7 +65,7 @@ public class AddProject extends JDialog {
         Projects.Project project = new Projects.Project();
         project.setProjectName(projectName.getText());
         project.setTeam((String) teamDropbox.getSelectedItem());
-        project.setScore(slider1.getValue());
+        project.setScore(scoreSlider.getValue());
         Projects.addProject(project);
         DataHandler.projectToJson(project);
         dispose();

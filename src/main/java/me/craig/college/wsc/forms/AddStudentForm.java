@@ -87,7 +87,6 @@ public class AddStudentForm extends JDialog {
         for (DataTable< Team > table : Teams.getTeams()) {
             for (DataTable< Person< Student > > student : table.getAsSelf().getStudents()) {
                 Student stu = (Student) student.getAsSelf();
-                System.out.println(id + " || " + stu.getStudentID() + " || " + table.getAsSelf().teamName());
                 if (String.valueOf(stu.getStudentID()).equals(id)) {
                     Utils.showError("Student with ID EC" + id + " already exists!");
                     return false;
