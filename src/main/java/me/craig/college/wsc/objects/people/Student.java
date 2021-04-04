@@ -1,6 +1,6 @@
 package me.craig.college.wsc.objects.people;
 
-import me.craig.college.wsc.Utility;
+import me.craig.college.wsc.utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -8,10 +8,10 @@ import javax.swing.table.DefaultTableModel;
 /* Created by Craig on 19/03/2021 */
 public class Student extends Person< Student > {
 
-    private final long studentID;
+    private long studentID;
     private String teamName;
 
-    public Student(long studentID, String address, long telephone, String teamName, String status) {
+    public Student(long studentID, String address, long telephone, String status, String teamName) {
         super(address, telephone, status);
         this.studentID = studentID;
         this.teamName = teamName;
@@ -23,7 +23,7 @@ public class Student extends Person< Student > {
 
     @Override
     public String[] toDataRow() {
-        return new String[]{getStatus(), String.valueOf(getStudentID()), getAddress(), teamName(), Utility.censorPhoneNumber(String.valueOf(getTelephone()))};
+        return new String[]{teamName(), String.valueOf(getStudentID()), getAddress(), getStatus(), Utils.censorPhoneNumber(String.valueOf(getTelephone()))};
     }
 
     public void setTeam(String teamName) {
@@ -37,5 +37,9 @@ public class Student extends Person< Student > {
     @Override
     public void setDataHeaders(JTable dataTable, Object[][] data) {
         dataTable.setModel(new DefaultTableModel(data, new String[]{"Team Name", "Student", "Address", "Status", "Telephone"}));
+    }
+
+    public Student getStudent() {
+        return this;
     }
 }

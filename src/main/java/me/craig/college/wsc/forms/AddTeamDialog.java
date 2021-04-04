@@ -1,9 +1,13 @@
 package me.craig.college.wsc.forms;
 
-import me.craig.college.wsc.CompetitionData;
-import me.craig.college.wsc.Utility;
+import me.craig.college.wsc.data.DataHandler;
 import me.craig.college.wsc.objects.College;
+import me.craig.college.wsc.objects.DataTable;
 import me.craig.college.wsc.objects.Team;
+import me.craig.college.wsc.objects.Teams;
+import me.craig.college.wsc.objects.people.Person;
+import me.craig.college.wsc.objects.people.Student;
+import me.craig.college.wsc.utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -32,7 +36,7 @@ public class AddTeamDialog extends JDialog {
             collegeChoiceBox.addItem(college.getCollegeName());
         }
 
-        for (String subject : CompetitionData.SUBJECTS) {
+        for (String subject : DataHandler.getSubjects()) {
             subjectArea.addItem(subject);
         }
 
@@ -42,10 +46,12 @@ public class AddTeamDialog extends JDialog {
 
         addTeamMembersButton.addActionListener(e -> {
             if (teamName.getText().isEmpty()) {
-                Utility.showError("You must set a Team name!");
+                Utils.showError("You must set a Team name!");
                 return;
             }
-            AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
+            for (int i = 16; i > 0; i--) {
+                AddStudentForm.createTeamInput(team.setTeamName(teamName.getText()), collegeMembersTable);
+            }
         });
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -76,12 +82,17 @@ public class AddTeamDialog extends JDialog {
 
     private void onOK() {
         if (team.getStudents().isEmpty()) {
-            Utility.showError("You must add Members to the Team");
+            Utils.showError("You must add Members to the Team");
             return;
         }
         team.setCollege((String) collegeChoiceBox.getSelectedItem());
         team.setArea((String) subjectArea.getSelectedItem());
-        CompetitionData.addTeam(team);
+        Teams.addTeam(team);
+        DataHandler.teamToJson(team);
+        for (DataTable< Person< Student > > genericStudent : team.getStudents()) {
+            Student student = (Student) genericStudent;
+            DataHandler.studentToJson(student);
+        }
         dispose();
     }
 

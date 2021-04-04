@@ -1,8 +1,8 @@
 package me.craig.college.wsc.forms;
 
-import me.craig.college.wsc.Utility;
 import me.craig.college.wsc.objects.people.JudgingPanel;
 import me.craig.college.wsc.objects.people.Person;
+import me.craig.college.wsc.utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -45,9 +45,9 @@ public class AddJudge extends JDialog {
             @Override
             public void windowOpened(WindowEvent e) {
                 super.windowOpened(e);
-                telephoneInput.setText("0131 664 " + Utility.generateNumber(4));
-                addressInput.setText(Utility.RAND.nextInt(100) + (Utility.RAND.nextBoolean() ? " Evergreen Terrace" : " Totters Lane"));
-                idInput.setText(String.valueOf(Utility.generateNumber(8)));
+                telephoneInput.setText("0131 664 " + Utils.generateNumber(4));
+                addressInput.setText(Utils.RAND.nextInt(100) + (Utils.RAND.nextBoolean() ? " Evergreen Terrace" : " Totters Lane"));
+                idInput.setText(String.valueOf(Utils.generateNumber(8)));
                 onOK();
             }
 
@@ -61,16 +61,16 @@ public class AddJudge extends JDialog {
 
     private void onOK() {
         if (!validateInputs()) {
-            Utility.showError("Please fill out all fields.");
+            Utils.showError("Please fill out all fields.");
             return;
         }
         String telephone = telephoneInput.getText().replaceAll(" ", "");
-        if (Utility.isValidLong(telephone) && Utility.isValidLong(idInput.getText())) {
+        if (Utils.isLongDetailValid(telephone) && Utils.isLongDetailValid(idInput.getText())) {
             JudgingPanel.addJudge(addressInput.getText(), Long.parseLong(telephone), Long.parseLong(idInput.getText()), (String) employmentChoice.getSelectedItem());
             dispose();
             return;
         }
-        Utility.showError("Please only enter numerical values! \nCheck: \n- The Student ID \n- The Phone Number");
+        Utils.showError("Please only enter numerical values! \nCheck: \n- The Student ID \n- The Phone Number");
     }
 
     public boolean validateInputs() {

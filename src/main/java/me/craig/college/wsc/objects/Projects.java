@@ -1,13 +1,16 @@
 package me.craig.college.wsc.objects;
 
+import com.google.gson.InstanceCreator;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /* Created by Craig on 29/03/2021 */
 public class Projects {
 
-    private static final ArrayList< DataTable< Project > > projects = new ArrayList<>();
+    private static final ArrayList< DataTable< Project > > projects = new ArrayList< DataTable< Project > >();
 
     public static void addProject(Project project) {
         projects.add(project);
@@ -17,7 +20,7 @@ public class Projects {
         return projects;
     }
 
-    public static class Project implements DataTable< Project > {
+    public static class Project implements DataTable< Project >, InstanceCreator< Project > {
         private float score = 0;
         private String projectName = "";
         private String team = null;
@@ -59,6 +62,11 @@ public class Projects {
         @Override
         public Project getAsSelf() {
             return this;
+        }
+
+        @Override
+        public Project createInstance(Type type) {
+            return new Project();
         }
     }
 

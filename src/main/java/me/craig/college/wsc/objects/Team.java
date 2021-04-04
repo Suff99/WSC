@@ -1,16 +1,17 @@
 package me.craig.college.wsc.objects;
 
+import com.google.gson.InstanceCreator;
 import me.craig.college.wsc.objects.people.Person;
 import me.craig.college.wsc.objects.people.Student;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /* Created by Craig on 26/03/2021 */
-public class Team implements DataTable< Team > {
-
-    private final ArrayList< DataTable< Person< Student > > > students = new ArrayList<>();
+public class Team implements DataTable< Team >, InstanceCreator< Team > {
+    private final transient ArrayList< DataTable< Person< Student > > > students = new ArrayList<>();
     private String teamName = "";
     private String college = "";
     private String area = "";
@@ -35,6 +36,10 @@ public class Team implements DataTable< Team > {
 
     public void addStudent(long ecNumber, String address, long telephone, String status, Team team) {
         Student student = new Student(ecNumber, address, telephone, status, team.teamName());
+        students.add(student);
+    }
+
+    public void addStudent(Student student) {
         students.add(student);
     }
 
@@ -63,5 +68,10 @@ public class Team implements DataTable< Team > {
     @Override
     public Team getAsSelf() {
         return this;
+    }
+
+    @Override
+    public Team createInstance(Type type) {
+        return new Team();
     }
 }

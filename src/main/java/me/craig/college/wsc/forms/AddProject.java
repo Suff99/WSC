@@ -1,10 +1,11 @@
 package me.craig.college.wsc.forms;
 
-import me.craig.college.wsc.CompetitionData;
-import me.craig.college.wsc.Utility;
+import me.craig.college.wsc.data.DataHandler;
 import me.craig.college.wsc.objects.DataTable;
 import me.craig.college.wsc.objects.Projects;
 import me.craig.college.wsc.objects.Team;
+import me.craig.college.wsc.objects.Teams;
+import me.craig.college.wsc.utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -42,7 +43,7 @@ public class AddProject extends JDialog {
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        for (DataTable< Team > team : CompetitionData.getTeams()) {
+        for (DataTable< Team > team : Teams.getTeams()) {
             teamDropbox.addItem(team.getAsSelf().teamName());
         }
     }
@@ -58,7 +59,7 @@ public class AddProject extends JDialog {
 
     private void onOK() {
         if (projectName.getText().isEmpty()) {
-            Utility.showError("Please Input a Project Name!");
+            Utils.showError("Please Input a Project Name!");
             return;
         }
         Projects.Project project = new Projects.Project();
@@ -66,6 +67,7 @@ public class AddProject extends JDialog {
         project.setTeam((String) teamDropbox.getSelectedItem());
         project.setScore(slider1.getValue());
         Projects.addProject(project);
+        DataHandler.projectToJson(project);
         dispose();
     }
 

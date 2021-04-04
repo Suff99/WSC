@@ -6,7 +6,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.swing.*;
 
 /* Created by Craig on 19/03/2021 */
-public class Person< S extends Person > implements DataTable< Person< S > > {
+public class Person< S extends Person< ? > > implements DataTable< Person< S > > {
     private String address = "";
     private long telephone = 0;
     private String status = Status.NONE.getStatus();
@@ -43,7 +43,6 @@ public class Person< S extends Person > implements DataTable< Person< S > > {
     public Person< S > getAsSelf() {
         return this;
     }
-
 
     public enum Status {
         FULL_TIME("Full Time"), PART_TIME("Part Time"), APPRENTICE("Apprentice"), NONE("None");

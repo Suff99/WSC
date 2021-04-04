@@ -1,8 +1,11 @@
 package me.craig.college.wsc.forms;
 
-import me.craig.college.wsc.Utility;
+import me.craig.college.wsc.objects.DataTable;
 import me.craig.college.wsc.objects.Team;
+import me.craig.college.wsc.objects.Teams;
 import me.craig.college.wsc.objects.people.Person;
+import me.craig.college.wsc.objects.people.Student;
+import me.craig.college.wsc.utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -46,6 +49,17 @@ public class AddStudentForm extends JDialog {
         buttonCancel.addActionListener(e -> onCancel());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+                super.windowOpened(e);
+                telephoneInput.setText("0131 664 " + Utils.generateNumber(4));
+                addressInput.setText(Utils.RAND.nextInt(100) + (Utils.RAND.nextBoolean() ? " Evergreen Terrace" : " Totters Lane"));
+                idInput.setText(String.valueOf(Utils.generateNumber(8)));
+                employmentChoice.setSelectedIndex(Utils.RAND.nextInt(3));
+                onOK();
+            }
+
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -56,17 +70,41 @@ public class AddStudentForm extends JDialog {
 
     private void onOK() {
         if (!validateInputs()) {
-            Utility.showError("Please fill out all fields.");
+            Utils.showError("Please fill out all fields.");
             return;
         }
         String telephone = telephoneInput.getText().replaceAll(" ", "");
-        if (Utility.isValidLong(telephone) && Utility.isValidLong(idInput.getText())) {
+        if (Utils.isLongDetailValid(telephone) && Utils.isLongDetailValid(idInput.getText()) && idCheck(idInput.getText())) {
             team.addStudent(Long.parseLong(idInput.getText()), addressInput.getText(), Long.parseLong(telephone), (String) employmentChoice.getSelectedItem(), team);
             WorldSkillsCompetition.insertDataToTable(textArea, team.getStudents());
             dispose();
-            return;
         }
-        Utility.showError("Please only enter numerical values! \nCheck: \n- The Student ID \n- The Phone Number");
+    }
+
+    private boolean idCheck(String id) {
+
+        // Check Already existing teams
+        for (DataTable< Team > table : Teams.getTeams()) {
+            for (DataTable< Person< Student > > student : table.getAsSelf().getStudents()) {
+                Student stu = (Student) student.getAsSelf();
+                System.out.println(id + " || " + stu.getStudentID() + " || " + table.getAsSelf().teamName());
+                if (String.valueOf(stu.getStudentID()).equals(id)) {
+                    Utils.showError("Student with ID EC" + id + " already exists!");
+                    return false;
+                }
+            }
+        }
+
+        // Check Pending team
+        for (DataTable< Person< Student > > student : team.getStudents()) {
+            Student stu = (Student) student.getAsSelf();
+            if (String.valueOf(stu.getStudentID()).equals(id)) {
+                Utils.showError("Student with ID EC" + id + " already exists!");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public boolean validateInputs() {

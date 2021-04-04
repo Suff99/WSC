@@ -1,19 +1,19 @@
 package me.craig.college.wsc.forms;
 
-import me.craig.college.wsc.CompetitionData;
-import me.craig.college.wsc.Utility;
+import me.craig.college.wsc.data.DataHandler;
 import me.craig.college.wsc.objects.DataTable;
 import me.craig.college.wsc.objects.Projects;
 import me.craig.college.wsc.objects.Team;
+import me.craig.college.wsc.objects.Teams;
 import me.craig.college.wsc.objects.people.JudgingPanel;
 import me.craig.college.wsc.objects.people.Person;
 import me.craig.college.wsc.objects.people.Student;
+import me.craig.college.wsc.utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +33,6 @@ public class WorldSkillsCompetition extends JFrame {
     private JButton helpButton;
 
     public WorldSkillsCompetition() {
-
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
 
         addTeamButton.addActionListener(e -> {
             AddTeamDialog.createTeamInput();
@@ -71,11 +64,11 @@ public class WorldSkillsCompetition extends JFrame {
 
         dataTable.setModel(new DefaultTableModel(null, new String[]{"Team Name", "College", "Members", "Area"}));
         dataTable.setEnabled(false);
-        iconLocation = getClass().getResource("/ws-logo.png");
+        iconLocation = getClass().getResource("/images/ws-logo.png");
     }
 
     public static void main(String[] args) {
-        Utility.setTheme();
+        Utils.setTheme();
         instance = new WorldSkillsCompetition();
         JFrame jFrame = new JFrame("World Skills Competition");
         jFrame.setContentPane(instance.mainPanel);
@@ -85,7 +78,12 @@ public class WorldSkillsCompetition extends JFrame {
         jFrame.setVisible(true);
         jFrame.setLocationRelativeTo(null);
         jFrame.setIconImage(instance.getIconLocation());
-
+        try {
+            DataHandler.subjects();
+            DataHandler.readInData();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void updateMainTable(String table) {
@@ -95,11 +93,11 @@ public class WorldSkillsCompetition extends JFrame {
                 insertDataToTable(instance.dataTable, JudgingPanel.getJudges());
                 break;
             case "Teams":
-                insertDataToTable(instance.dataTable, CompetitionData.getTeams());
+                insertDataToTable(instance.dataTable, Teams.getTeams());
                 break;
             case "Students":
                 ArrayList< DataTable< Person< Student > > > combinedStudents = new ArrayList<>();
-                for (DataTable< Team > dataTable : CompetitionData.getTeams()) {
+                for (DataTable< Team > dataTable : Teams.getTeams()) {
                     Team team = dataTable.getAsSelf();
                     ArrayList< DataTable< Person< Student > > > students = team.getStudents();
                     combinedStudents.addAll(students);
@@ -117,17 +115,17 @@ public class WorldSkillsCompetition extends JFrame {
     public static < T > void insertDataToTable(JTable jTable, List< DataTable< T > > dataTables) {
         Object[][] values = new Object[][]{};
         if (dataTables.isEmpty()) {
-            Utility.showError("No Available Data");
+            Utils.showError("No Available Data");
             return;
         }
         for (DataTable< T > project : dataTables) {
-            values = Utility.addToArray(project.toDataRow(), values);
+            values = Utils.addToArray(project.toDataRow(), values);
             project.setDataHeaders(jTable, values);
         }
     }
 
-    private void unlockButtons() {
-        boolean enableProgram = !CompetitionData.getTeams().isEmpty();
+    public void unlockButtons() {
+        boolean enableProgram = !Teams.getTeams().isEmpty();
         addProjectButton.setEnabled(enableProgram);
         currentDataChoice.setEnabled(enableProgram);
         addJudgeButton.setEnabled(enableProgram);

@@ -1,5 +1,6 @@
 package me.craig.college.wsc.objects.people;
 
+import me.craig.college.wsc.data.DataHandler;
 import me.craig.college.wsc.objects.DataTable;
 
 import java.util.ArrayList;
@@ -14,7 +15,13 @@ public class JudgingPanel {
     }
 
     public static void addJudge(String address, long telephone, long teachingId, String status) {
-        JUDGES.add(new Teacher(address, telephone, teachingId, status));
+        Teacher e = new Teacher(address, telephone, teachingId, status);
+        JUDGES.add(e);
+        DataHandler.judgeToJson(e);
+    }
+
+    public static void addJudge(Teacher teacher) {
+        JUDGES.add(teacher);
     }
 
 }

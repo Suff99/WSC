@@ -1,6 +1,6 @@
 package me.craig.college.wsc.objects.people;
 
-import me.craig.college.wsc.Utility;
+import me.craig.college.wsc.utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +21,7 @@ public class Teacher extends Person< Teacher > {
 
     @Override
     public String[] toDataRow() {
-        return new String[]{String.valueOf(getTeachingId()), Utility.censorPhoneNumber(String.valueOf(getTelephone())), getAddress(), getStatus()};
+        return new String[]{String.valueOf(getTeachingId()), Utils.censorPhoneNumber(String.valueOf(getTelephone())), getAddress(), getStatus()};
     }
 
     @Override
