@@ -1,7 +1,6 @@
 package me.craig.college.wsc.objects.people;
 
 import me.craig.college.wsc.objects.DataTable;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
 
@@ -31,12 +30,11 @@ public class Person< S extends Person< ? > > implements DataTable< Person< S > >
 
     @Override
     public String[] toDataRow() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public void setDataHeaders(JTable dataTable, Object[][] data) {
-        throw new NotImplementedException();
     }
 
     @Override

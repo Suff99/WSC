@@ -13,6 +13,7 @@ import me.craig.college.wsc.utils.AES;
 import me.craig.college.wsc.utils.Utils;
 import org.apache.commons.io.FileUtils;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -22,10 +23,10 @@ import java.util.Objects;
 /* Created by Craig on 04/04/2021 */
 public class DataHandler {
 
-    private static String[] SUBJECTS = {};
+    public static String[] SUBJECTS = {};
 
     public static void subjects() throws FileNotFoundException {
-        URL jsonStream = DataHandler.class.getResource("/data/subjects.json");
+        URL jsonStream = DataHandler.class.getResource("/subjects.json");
         SUBJECTS = Utils.GSON.fromJson(new FileReader(jsonStream.getFile()), String[].class);
     }
 
