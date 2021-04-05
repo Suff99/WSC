@@ -13,9 +13,7 @@ import me.craig.college.wsc.utils.AES;
 import me.craig.college.wsc.utils.Utils;
 import org.apache.commons.io.FileUtils;
 
-import javax.xml.crypto.Data;
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Objects;
@@ -26,8 +24,10 @@ public class DataHandler {
     public static String[] SUBJECTS = {};
 
     public static void subjects() throws FileNotFoundException {
-        URL jsonStream = DataHandler.class.getResource("/subjects.json");
-        SUBJECTS = Utils.GSON.fromJson(new FileReader(jsonStream.getFile()), String[].class);
+        InputStream is = DataHandler.class.getResourceAsStream("/subjects.json");
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        SUBJECTS = Utils.GSON.fromJson(br, String[].class);
     }
 
     public static String[] getSubjects() {
