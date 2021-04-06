@@ -23,7 +23,7 @@ public class DataHandler {
 
     public static String[] SUBJECTS = {};
 
-    public static void subjects() throws FileNotFoundException {
+    public static void subjects() {
         InputStream is = DataHandler.class.getResourceAsStream("/subjects.json");
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
@@ -83,7 +83,7 @@ public class DataHandler {
 
     public static void readInData() {
         try {
-            //Projects
+            //EditProject
             readInProjects();
             // Teams & Students
             readInTeams();
@@ -159,5 +159,14 @@ public class DataHandler {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public static void deleteProjectFile(Projects.Project project) {
+        File directory = new File("./projects");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File fileWriter = new File(directory + "/" + project.getProjectName() + ".proj");
+        fileWriter.delete();
     }
 }

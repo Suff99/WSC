@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class AddJudge extends JDialog {
+public class AddJudgeForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonCancel, buttonOK;
     private JTextField idInput, addressInput;
@@ -21,14 +21,14 @@ public class AddJudge extends JDialog {
     private JFormattedTextField telephoneInput;
     private JLabel title;
 
-    public AddJudge() {
+    public AddJudgeForm() {
         employmentChoice.addItem(Person.Status.FULL_TIME.getStatus());
         employmentChoice.addItem(Person.Status.PART_TIME.getStatus());
         defaultFormActions();
     }
 
     public static void addJudgeInput() {
-        AddJudge dialog = new AddJudge();
+        AddJudgeForm dialog = new AddJudgeForm();
         dialog.setIconImage(WorldSkillsCompetition.instance.getIconLocation());
         dialog.setLocationRelativeTo(null);
         dialog.pack();

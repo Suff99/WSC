@@ -23,8 +23,11 @@ public class Utils {
     }
 
     public static void setTheme() {
+       // FlatLightLaf.install();
+
+        // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }

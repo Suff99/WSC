@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class AddProject extends JDialog {
+public class AddProjectForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -25,7 +25,7 @@ public class AddProject extends JDialog {
     private JSlider scoreSlider;
     private JLabel data;
 
-    public AddProject() {
+    public AddProjectForm() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -53,7 +53,7 @@ public class AddProject extends JDialog {
     }
 
     public static void createProject() {
-        AddProject dialog = new AddProject();
+        AddProjectForm dialog = new AddProjectForm();
         dialog.setIconImage(WorldSkillsCompetition.instance.getIconLocation());
         dialog.pack();
         dialog.setLocationRelativeTo(null);
