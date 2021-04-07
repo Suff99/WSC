@@ -36,6 +36,9 @@ build/
  .idea/modules
  *.iml
  *.ipr
+build
+logs
+.gradle
 
 # CMake
 cmake-build-*/
