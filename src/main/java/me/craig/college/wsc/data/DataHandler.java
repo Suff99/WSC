@@ -83,7 +83,7 @@ public class DataHandler {
 
     public static void readInData() {
         try {
-            //EditProject
+            // Projects
             readInProjects();
             // Teams & Students
             readInTeams();

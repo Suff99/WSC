@@ -69,6 +69,7 @@ public class WorldSkillsCompetition extends JFrame {
         });
 
         editProject.addActionListener(actionEvent -> EditProject.showEditor());
+        editProject.setEnabled(false);
 
         dataTable.setModel(new DefaultTableModel(null, new String[]{"Team Name", "College", "Members", "Area"}));
         dataTable.setEnabled(false);
@@ -134,6 +135,7 @@ public class WorldSkillsCompetition extends JFrame {
         addProjectButton.setEnabled(enableProgram);
         currentDataChoice.setEnabled(enableProgram);
         addJudgeButton.setEnabled(enableProgram);
+        editProject.setEnabled(enableProgram);
         updateMainTable((String) currentDataChoice.getSelectedItem());
     }
 

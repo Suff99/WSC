@@ -67,6 +67,11 @@ public class EditProject {
     }
 
     public static void showEditor() {
+        if (Projects.getProjects().isEmpty()) {
+            Utils.showError("No Projects to Edit!");
+            jFrame.dispose();
+            return;
+        }
         Utils.setTheme();
         jFrame.setContentPane(new EditProject().main);
         jFrame.setSize(1000, 500);
